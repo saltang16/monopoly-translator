@@ -49,10 +49,15 @@
 <body>
     <div id="container">
         <h1>Monopoly Card Translator</h1>
-        <input type="text" id="search" placeholder="Enter card label (e.g., C1)" onkeyup="searchCard()" />
+        <input type="text" id="search" placeholder="Enter card label (e.g., C1, H)" onkeyup="searchCard()" />
         <div id="result">
-            <p>Type a card label above to see the translation.</p>
-            <p>Hướng dẫn: Nhập mã thẻ (ví dụ: C1, C2, v.v.) vào ô tìm kiếm để xem bản dịch.</p>
+            <p>Hướng dẫn: Nhập mã thẻ (ví dụ: C1, C2, H) vào ô tìm kiếm để xem bản dịch.</p>
+        </div>
+        <div class="legend">
+            <h3>Legend / Key</h3>
+            <p><strong>Tin Dung:</strong> A, B, C, D</p>
+            <p><strong>Thẻ Cơ Hội:</strong> C1, C2, C3, ... C20</p>
+            <p><strong>Hướng Dẫn Sử Dụng Máy Ngân Hàng:</strong> I</p>
         </div>
     </div>
 
@@ -137,18 +142,76 @@
             "C20": { 
                 "english": "Your electricity bill is due! Pay 150$.", 
                 "vietnamese": "Hóa đơn tiền điện của bạn đến hạn! Trả 150$." 
+            },
+            "A": { 
+                "english": "BIG SPENDER. Every time you buy a property in a new color set, the Bank automatically gives you a 50$ bonus!", 
+                "vietnamese": "NGƯỜI TIÊU XÀI LỚN. Mỗi lần bạn mua một tài sản trong bộ màu mới, Ngân hàng sẽ tự động tặng bạn 50$ tiền thưởng!"
+            },
+            "B": { 
+                "english": "SUPER SAVER. When you land on a Chance space, the Bank adds 50$ to your Bank card!", 
+                "vietnamese": "SIÊU TIẾT KIỆM. Khi bạn đáp vào ô Cơ Hội, Ngân hàng sẽ thêm 50$ vào thẻ Ngân hàng của bạn!" 
+            },
+            "C": { 
+                "english": "FREQUENT FLYER. When you land on an Airport space, you get to take a flight for free!", 
+                "vietnamese": "NGƯỜI BAY THƯỜNG XUYÊN. Khi bạn đáp vào ô Sân Bay, bạn được bay miễn phí!" 
+            },
+            "D": { 
+               "english": "WORLD TRAVELER. When you roll a 6, the Bank adds 50$ to your Bank card!", 
+               "vietnamese": "NGƯỜI DU HÀNH THẾ GIỚI. Khi bạn tung được 6, Ngân hàng sẽ thêm 50$ vào thẻ Ngân hàng của bạn!" 
+            },
+            "I": {
+                "english": `
+                    HOW TO USE THE BANKING UNIT:<br>
+                    1. Buy a property<br>
+                        &emsp;1. Tap the Title Deed.<br>
+                        &emsp;2. Tap your Bank card.<br>
+                    2. Pay rent<br>
+                        &emsp;1. Tap the Title Deed.<br>
+                        &emsp;2. Tap your Bank card.<br>
+                    3. Pass GO<br>
+                        &emsp;1. Press until arrow appears.<br>
+                        &emsp;2. Tap your Bank card.<br>
+                    4. Take a flight<br>
+                        &emsp;1. Press until airplane icon appears.<br>
+                        &emsp;2. Tap your Bank card.<br>
+                    5. Force a trade<br>
+                        &emsp;1. Press until handshake icon appears.<br>
+                        &emsp;2. Tap the Title Deed you want.<br>
+                        &emsp;3. Tap the Title Deed you are giving.<br>
+                `,
+                "vietnamese": `
+                    CÁCH SỬ DỤNG ĐƠN VỊ NGÂN HÀNG:<br>
+                    1. Mua tài sản<br>
+                        &emsp;1. Chạm vào Giấy chứng nhận quyền sở hữu.<br>
+                        &emsp;2. Chạm vào thẻ Ngân hàng của bạn.<br>
+                    2. Trả tiền thuê<br>
+                        &emsp;1. Chạm vào Giấy chứng nhận quyền sở hữu.<br>
+                        &emsp;2. Chạm vào thẻ Ngân hàng của bạn.<br>
+                    3. Qua Ô Đầu<br>
+                        &emsp;1. Nhấn (2) cho đến khi mũi tên xuất hiện.<br>
+                        &emsp;2. Chạm vào thẻ Ngân hàng của bạn.<br>
+                    4. Thực hiện chuyến bay<br>
+                        &emsp;1. Nhấn (2) cho đến khi biểu tượng máy bay xuất hiện.<br>
+                        &emsp;2. Chạm vào thẻ Ngân hàng của bạn.<br>
+                    5. Buộc trao đổi<br>
+                        &emsp;1. Nhấn (2) cho đến khi biểu tượng bắt tay xuất hiện.<br>
+                        &emsp;2. Chạm vào Giấy chứng nhận quyền sở hữu mà bạn muốn.<br>
+                        &emsp;3. Chạm vào Giấy chứng nhận quyền sở hữu mà bạn đang trao đổi.<br>
+                `
             }
         };
 
         function searchCard() {
-            const search = document.getElementById('search').value.toUpperCase();
+            const search = document.getElementById('search').value.toUpperCase().trim();
             const resultDiv = document.getElementById('result');
             const card = cards[search];
 
             if (card) {
                 resultDiv.innerHTML = `
-                    <p><strong>English:</strong> ${card.english}</p>
-                    <p class="highlight"><strong>Vietnamese:</strong> ${card.vietnamese}</p>
+                    <p><strong>English:</strong></p> 
+                    <p>${card.english}</p>
+                    <p class="highlight"><strong>Vietnamese:</strong></p>
+                    <p>${card.vietnamese}</p>
                 `;
             } else {
                 resultDiv.innerHTML = '<p>Card not found.</p>';
